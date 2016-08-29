@@ -7,3 +7,4 @@ fi
 
 ID="$1"
 dot -Tpng -o "ag_$ID.png" "ag_$ID.dot"
+dot -Tpdf -o "ag_$ID.pdf" "ag_$ID.dot"
