@@ -1,0 +1,6 @@
+travioli/
+*~
+*.log
+.DS_Store
+node_modules
+*_jalangi_*
