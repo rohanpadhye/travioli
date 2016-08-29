@@ -49,7 +49,7 @@ var path = require('path');
         var lastsid = -1;
         var HOP = sandbox.Constants.HOP;
 
-        var outDir = sandbox.initParams['outDir'] || 'travioli';
+        var outDir = sandbox.initParams['outDir'] || '.travioli';
         var traceWriter = new logging.TraceWriter(sandbox, outDir+"/trace.csv");
 
         function logEvent(str) {

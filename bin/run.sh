@@ -12,8 +12,8 @@ fi
 # Set JS runtime
 NODE="node"
 
-time $NODE $@ &&
-time "$TRAVIOLI_DIR/bin/collect_trace.sh" "$TRAVIOLI_DIR/node_modules/jalangi2" $@ && 
-time $PYTHON "$TRAVIOLI_DIR/src/py/readtrace.py" && 
-tail -3 "travioli/traversals.out"
+$NODE $@ &&
+"$TRAVIOLI_DIR/bin/collect_trace.sh" "$TRAVIOLI_DIR/node_modules/jalangi2" $@ &&
+$PYTHON "$TRAVIOLI_DIR/src/py/readtrace.py" && 
+tail -3 ".travioli/traversals.out"
 

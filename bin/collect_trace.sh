@@ -11,5 +11,5 @@ if [ $# -lt 2 ]; then
   exit 1
 fi
 
-mkdir -p "travioli"
+mkdir -p ".travioli"
 node "$JALANGI_DIR/src/js/commands/jalangi.js" --inlineIID --inlineSource --analysis "$JALANGI_DIR/src/js/sample_analyses/ChainedAnalyses.js" --analysis "$JALANGI_DIR/src/js/runtime/SMemory.js" --analysis "$TRAVIOLI_DIR/src/js/LogData.js" "${@:2}"

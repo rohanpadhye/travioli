@@ -31,10 +31,25 @@ import collections, itertools
 import csv, json
 from collections import namedtuple, defaultdict
 import os.path
-import progressbar
 
 import random
 random.seed("icse2017")  # Fixed seed for reproducibility of experiments
+
+
+try:
+	from progressbar import ProgressBar
+except ImportError:
+	class ProgressBar(object):
+		def __init__(self, max_value=100):
+			pass
+		def __enter__(self):
+			return self
+
+		def __exit__(self, exc_type, exc_value, traceback):
+			pass
+
+		def update(self, amount):
+			pass
 
 ##############################
 # Driver and I/O
@@ -55,7 +70,7 @@ def main() :
 	# Command-line arguments
 	parser = argparse.ArgumentParser(description='Analyze a read-write '
     	'trace for data-structure traversals.')
-	parser.add_argument('--dir', type=str, dest='dir', default='travioli', 
+	parser.add_argument('--dir', type=str, dest='dir', default='.travioli', 
         help="Working directory (default: travioli)")
 	parser.add_argument('--trace_csv', type=str, dest='trace_csv', default='trace.csv', 
         help="Read-write trace file (default: trace.csv)")
@@ -101,7 +116,7 @@ def main() :
 	push_sets(0, 0, 0)
 	with open(trace_csv_file) as trace_csv:
 		trace_reader = csv.reader(trace_csv)
-		with progressbar.ProgressBar(max_value=total_lines) as pb:
+		with ProgressBar(max_value=total_lines) as pb:
 			line = 0
 			for row in trace_reader:
 				line = line + 1
