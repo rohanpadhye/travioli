@@ -77,7 +77,7 @@ $ <PATH_TO_TRAVIOLI>/bin/aec 36
 <PATH_TO_TRAVIOLI>/test/lists.js:[87, 1, 87, 8]
 ```
 
-This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case2()` on line 87](test/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](test/lists.js#L38) and then the expression [`node.next` on line 33](test/lists.js#L33)).
+This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case3()` on line 87](test/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](test/lists.js#L38) and then the expression [`node.next` on line 33](test/lists.js#L33)).
 
 This directory also contains all the generated access graphs with extension `dot`. You will need `GraphViz` installed to render the access graphs into a format like PDF or PNG.
 
