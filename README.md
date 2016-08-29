@@ -36,7 +36,7 @@ This will first execute the program normally, then with instrumentation, and the
 
 `cd .travioli` to go to the results directory.
 
-The main file to look at is `traversals.out`. This file lists all data-structures whose traversals were identified, and all their associated traversal points. For example, running travioli on the file [`lists.js`](tests/lists.js) gives:
+The main file to look at is `traversals.out`. This file lists all data-structures whose traversals were identified, and all their associated traversal points. For example, running travioli on the file [`lists.js`](test/lists.js) gives:
 
 ```
 + Data structure: (lists.js[27:1-35:2]).node
@@ -72,12 +72,12 @@ $ <PATH_TO_TRAVIOLI>/bin/aec <AEC_IDENTIFIER>
 For the above example:
 ```
 $ <PATH_TO_TRAVIOLI>/bin/aec 36
-<PATH_TO_TRAVIOLI>/tests/lists.js:[33, 19, 33, 28]
-<PATH_TO_TRAVIOLI>/tests/lists.js:[38, 9, 38, 27]
-<PATH_TO_TRAVIOLI>/tests/lists.js:[87, 1, 87, 8]
+<PATH_TO_TRAVIOLI>/test/lists.js:[33, 19, 33, 28]
+<PATH_TO_TRAVIOLI>/test/lists.js:[38, 9, 38, 27]
+<PATH_TO_TRAVIOLI>/test/lists.js:[87, 1, 87, 8]
 ```
 
-This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case2()` on line 87](tests/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](test/lists.js#L38) and then the expression [`node.next` on line 33](tests/lists.js#L33)).
+This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case2()` on line 87](test/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](test/lists.js#L38) and then the expression [`node.next` on line 33](test/lists.js#L33)).
 
 This directory also contains all the generated access graphs with extension `dot`. You will need `GraphViz` installed to render the access graphs into a format like PDF or PNG.
 
