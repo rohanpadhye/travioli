@@ -165,7 +165,7 @@ def main() :
 	with open(output_file, 'w') as out:
 		#out.write("Summary for function [" + str_loc(func, full=False) + "] at " + str_loc(func, full=True) + " is:\n")
 		for path, ds_info in traversal_infos.iteritems():
-			out.write("$ Data structure: " + path)
+			out.write("+ Data structure: " + path)
 			if path in random_t_samples:
 				out.write(" {sampled traversal}")
 			if path in random_r_samples:
@@ -184,7 +184,8 @@ def main() :
 				for loc in expand_aec(raec):
 					out.write("    - " + str_loc(loc) + "\n")
 				func = raec_func_map[raec]
-				out.write("    # Function: (" + str_func(func) + ")\n")
+				out.write("    # Analyzed Function: " + str_loc(func) + "\n")
+				out.write("    # Access Graph: ag_" + str_func(func) + "\n")
 				out.write("    # Reached from the following AECs: " + str_list_truncate(list(raec_read_map[raec]), 5) + "\n")
 				out.write("    # Last written at the following AECs: " + str_list_truncate(list(raec_write_map[raec]), 5) + "\n")
 		out.write("\n")
