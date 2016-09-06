@@ -118,7 +118,7 @@ $ <PATH_TO_TRAVIOLI>/bin/loc 1 377
 <PATH_TO_TRAVIOLI>/test/lists.js[19:1-25:2]
 ``` 
 
-The output indicates that the function is located in [`lists.js` at lines 29-25](test/lists.js#L19-L25).
+The output indicates that the function is located in [`lists.js` at lines 19-25](test/lists.js#L19-L25).
 
 
 
