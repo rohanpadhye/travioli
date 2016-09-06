@@ -99,7 +99,11 @@ The traversal points listed in `traversals.out` list the function in which they 
 $ <PATH_TO_TRAVIOLI>/bin/dot.sh 1:377
 ``` 
 
-The command renders the access graph in the files `ag_1:377.png` and `ag_1:377.pdf`. Open one of these files in your system's image or PDF viewer to see the access graph.
+The command renders the access graph in the files `ag_1:377.png` and `ag_1:377.pdf`. Open one of these files in your system's image or PDF viewer to see the access graph, which should help visualize the traversal of the linked-list:
+
+![Access graph showing list.(next)*.data](docs/ag-list.png)
+
+The root variable is `list`, the edges are labeled with field-names, and the nodes are labeled with AEC identifiers (see above for how to expand the AEC). Nodes are colored grey if they correspond to traversal points, and colored black if they correspond to redundant traversal points.
 
 If you wish to render all access graphs at once, simply omit the argument to `dot.sh` as follows:
 ```
@@ -107,12 +111,6 @@ $ <PATH_TO_TRAVIOLI>/bin/dot.sh
 ``` 
 
 Note that rendering can be quite time-consuming for large applications.
-
-For the `lists.js` example, the access graph for function `1:377` looks as follows:
-
-![Access graph showing list.(next)*.data](docs/ag-list.png)
-
-The root variable is `list`, the edges are labeled with field-names, and the nodes are labeled with AEC identifiers (see above for how to expand the AEC). Nodes are colored grey if they correspond to traversal points, and colored black if they correspond to redundant traversal points.
 
 
 
