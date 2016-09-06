@@ -50,8 +50,12 @@ acs = aec_tab[aec]
 for loc in reversed(acs):
     sid = str(loc[0])
     iid = str(loc[1])
-    fileName = smap[sid]["originalCodeFileName"];
+    fileName = str(smap[sid]["originalCodeFileName"])
     pos = smap[sid][iid]
-    print str(fileName) + ":" + str(pos)
+    l1 = str(pos[0])
+    c1 = str(pos[1])
+    l2 = str(pos[2])
+    c2 = str(pos[3])
+    print fileName + "[" + l1 + ":" + c1 + "-" + l2 + ":" + c2 + "]"
 
 

@@ -1,10 +1,14 @@
 #!/bin/bash
 
-if [ "$#" -lt 1 ]; then
-  echo "USAGE: $0 ID " >&2
-  exit 1
+if [ "$#" -ge 1 ]; then
+  PATTERN="ag_$1.dot"
+else
+  PATTERN="ag_*.dot"
 fi
 
-ID="$1"
-dot -Tpng -o "ag_$ID.png" "ag_$ID.dot"
-dot -Tpdf -o "ag_$ID.pdf" "ag_$ID.dot"
+for ag in $(ls $PATTERN); do
+	echo -n "Rendering access graph: ${ag%%.*}..."
+	dot -Tpng -o "${ag%%.*}.png" "${ag%%.*}.dot"
+	dot -Tpdf -o "${ag%%.*}.pdf" "${ag%%.*}.dot"
+	echo " Done!"
+done

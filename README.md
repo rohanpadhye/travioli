@@ -6,11 +6,13 @@ Currently, only JavaScript programs are supported. Travioli uses [Jalangi2](http
 
 ## Requirements
 
-Travioli supports ECMAScript 5 and has been tested on NodeJS v4.4.0.
+Travioli supports ECMAScript 5 and has been tested on NodeJS v4.4.0. You will need to have **node** and **npm** installed.
 
-Travioli uses python for the back-end analysis. We **strongly** recommend using the [pypy](http://pypy.org) implementation. Travioli's analysis is CPU-intensive; pypy's tracing JIT compiler speeds up analysis over the default CPython runtime by anywhere from 4x to 10x, and saves a lot of memory too. 
+Travioli uses **python** for the back-end analysis. We *strongly* recommend using the [pypy](http://pypy.org) implementation. Travioli's analysis is CPU-intensive; pypy's tracing JIT compiler speeds up analysis over the default CPython runtime by anywhere from 4x to 10x, and saves a lot of memory too. 
 
 Travioli's run script looks for a binary named `pypy` in the current `PATH` and if not found falls back to the `python` command.
+
+**[Optional]** If you wish to use Travioli for visualization, you will need **GraphViz** to render access graphs from the `dot` files that Travioli generates. This software is available as `graphviz` via `brew` and `apt-get`/`aptitude`.
 
 ## Installation
 
@@ -63,7 +65,14 @@ The main file to look at is `traversals.out`. This file lists all data-structure
 
 Data-structures are named by access paths starting from a global variable `<global>.{var}[.{field}]+` or from a local variable `{function}.{var}.[.{field}]+`, where `{var}` is a variable name, `{field}` is a field name or array index, and `{function}` is the source location where the function is declared (we use source locations rather than function names, because the latter are not unique and do not even exist for anonymous functions). In the above example, `<global>.list` refers to the global variable `list`, while `(lists.js[27:1-35:2]).node` refers to the local variable `node` in the function declared in `lists.js` from line 27 column 1 to line 35 column 2. 
 
-AECs for traversal points are expanded in the output file itself. For example, traversal point `[35]` has the expansion `lists.js[33:19-33:28]`, corresponding to the expression [`node.next` on line 33](test/lists.js#L33). AECs for read/write contexts are listed as just numeric identifiers to avoid cluttering this file. If you want to expand a numeric AEC identifier, then from the `.travioli` directory do:
+### Acyclic Execution Contexts
+
+An *acyclic execution context* (AEC) is just like a stack-trace, in that it displays a point in program execution as a list: the first item is a program-location and the rest are function invocation-locations in reverse order (most recent call first). 
+The term *acyclic* implies that AECs never contain the same function more than once, and thus there are never any cycles. For executions that involve recursive functions, Travioli reduces the stack-trace by removing cycles such that the resulting acyclic execution context is also a valid stack-trace (see the research paper for more details). Travioli uses AECs to represent recursive data-structure traversals in a concise manner.
+
+AECs either start with some base function or can be extended all the way to the top-level call. If Travioli detects a function that performs data-structure traversal, it will report the AECs of traversal points with respect to the traversing function in the `traversals.out` file itself. If you are interested in seeing the full AECs from the outermost call (usually in the top-level script scope), these AECs are listed as *read* and *write* contexts. 
+
+In the above example, traversal point `[35]` has the expansion `lists.js[33:19-33:28]`, corresponding to the expression [`node.next` on line 33](test/lists.js#L33). AECs for read/write contexts are listed as just numeric identifiers to avoid cluttering this file. If you want to expand a numeric AEC identifier, then from the `.travioli` directory do:
 
 ```
 $ <PATH_TO_TRAVIOLI>/bin/aec <AEC_IDENTIFIER>
@@ -72,12 +81,16 @@ $ <PATH_TO_TRAVIOLI>/bin/aec <AEC_IDENTIFIER>
 For the above example:
 ```
 $ <PATH_TO_TRAVIOLI>/bin/aec 36
-<PATH_TO_TRAVIOLI>/test/lists.js:[33, 19, 33, 28]
-<PATH_TO_TRAVIOLI>/test/lists.js:[38, 9, 38, 27]
-<PATH_TO_TRAVIOLI>/test/lists.js:[87, 1, 87, 8]
+<PATH_TO_TRAVIOLI>/test/lists.js[33:19-33:28]
+<PATH_TO_TRAVIOLI>/test/lists.js[38:9-38:27]
+<PATH_TO_TRAVIOLI>/test/lists.js[87:1-87:8]
 ```
 
 This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case3()` on line 87](test/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](test/lists.js#L38) and then the expression [`node.next` on line 33](test/lists.js#L33)).
+
+The write context is also a full AEC but corresponds to the program-locations where the data-structure fields being traversed were written.
+
+### Access Graphs Visualization
 
 This directory also contains all the generated access graphs with extension `dot`. You will need `GraphViz` installed to render the access graphs into a format like PDF or PNG.
 
@@ -87,4 +100,12 @@ $ <PATH_TO_TRAVIOLI>/bin/dot.sh 1:377
 ``` 
 
 The command renders the access graph in the files `ag_1:377.png` and `ag_1:377.pdf`. Open one of these files in your system's image or PDF viewer to see the access graph.
+
+If you wish to render all access graphs at once, simply omit the argument to `dot.sh` as follows:
+```
+$ <PATH_TO_TRAVIOLI>/bin/dot.sh
+``` 
+
+Note that rendering can be quite time-consuming for large applications.
+
 
