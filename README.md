@@ -6,7 +6,7 @@ Currently, only JavaScript programs are supported. Travioli uses [Jalangi2](http
 
 ## Requirements
 
-Travioli supports ECMAScript 5 and has been tested on NodeJS v4.4.40.
+Travioli supports ECMAScript 5 and has been tested on NodeJS v4.4.0.
 
 Travioli uses python for the back-end analysis. We **strongly** recommend using the [pypy](http://pypy.org) implementation. Travioli's analysis is CPU-intensive; pypy's tracing JIT compiler speeds up analysis over the default CPython runtime by anywhere from 4x to 10x, and saves a lot of memory too. 
 
