@@ -39,9 +39,13 @@ iid = sys.argv[2]
 smap_file = "smap.json"
 
 with open(smap_file) as smap_json:
-  smap = json.load(smap_json)
-  fileName = smap[sid]["originalCodeFileName"];
-  pos = smap[sid][iid]
-  print str(fileName) + ":" + str(pos)
+	smap = json.load(smap_json)
+	fileName = str(smap[sid]["originalCodeFileName"])
+	pos = smap[sid][iid]
+	l1 = str(pos[0])
+	c1 = str(pos[1])
+	l2 = str(pos[2])
+	c2 = str(pos[3])
+	print fileName + "[" + l1 + ":" + c1 + "-" + l2 + ":" + c2 + "]"
 
 

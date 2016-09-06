@@ -110,7 +110,15 @@ If you wish to render all access graphs at once, simply omit the argument to `do
 $ <PATH_TO_TRAVIOLI>/bin/dot.sh
 ``` 
 
-Note that rendering can be quite time-consuming for large applications.
+Note that rendering can be quite time-consuming for large applications. This command will generate a bunch of PNG and PDF files corresponding to access graphs of all functions that Travioli has analyzed. A convenience script is provided to help match the function-location identifiers in the access graph filenames (or in `traversals.out`) to positions in the source file. For example, to determine what function the access graph `ag_1:377` corresponds to, run:
+
+
+```
+$ <PATH_TO_TRAVIOLI>/bin/loc 1 377
+<PATH_TO_TRAVIOLI>/test/lists.js[19:1-25:2]
+``` 
+
+The output indicates that the function is located in [`lists.js` at lines 29-25](test/lists.js#L19-L25).
 
 
 
