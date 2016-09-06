@@ -872,7 +872,7 @@ class AccessGraphVarNode(AccessGraphNode):
 		func = var[0]
 		fld = var[1]
 		idx = var
-		label = string(fld) + '@' + str_func(func)
+		label = string(fld)# + '@' + str_func(func)
 		name = quote(label)
 		AccessGraphNode.__init__(self, idx, name, label)
 
@@ -1020,6 +1020,8 @@ def dot_access_graphs(func, parent_dir):
 			elif isinstance(node, AccessGraphAecNode) and node.traversed:
 				fillcolor = 'grey'
 				fontcolor = 'black'
+			elif isinstance(node, AccessGraphRootNode):
+				continue # Disable rendering of nodes
 			else:
 				fillcolor = 'white'
 				fontcolor = 'black'
