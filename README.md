@@ -121,4 +121,7 @@ $ <PATH_TO_TRAVIOLI>/bin/loc 1 377
 The output indicates that the function is located in [`lists.js` at lines 19-25](test/lists.js#L19-L25).
 
 
+### Experiments
+
+To reproduce the experiments described in the research paper, run the script `bin/exp.sh`. This will clone [`d3-hierarchy`](https://github.com/d3/d3-hierarchy), [`d3-collection`](https://github.com/d3/d3-collection), [`express`](https://github.com/expressjs/express) and [`mathjs`](https://github.com/josdejong/mathjs) into the `test` directory, checkout the versions used for experiments in the paper, and run Travioli on the unit test suites. The results will be produced in their respective `.travioli` directories, with the summary of data-structure traversals in the `traversals.out` file.
 
