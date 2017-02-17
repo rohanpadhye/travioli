@@ -1,6 +1,6 @@
 # Travioli
 
-Travioli is a dynamic analysis to identify program functions that traverse input data-structures, and aid in understanding what context such functions are invoked in. 
+Travioli is a dynamic analysis to identify program functions that traverse input data-structures, and aid in understanding what context such functions are invoked in. Details can be found in the [ICSE 2017 paper](https://rohanpadhye.github.io/travioli/paper.pdf).
 
 Currently, only JavaScript programs are supported. Travioli uses [Jalangi2](https://github.com/Samsung/jalangi2) for instrumenting JavaScript programs to generate read-write events for every load/store of a JavaScript variable, object field or array element. Travioli then analyzes the generated trace to detect data-structure traversals in the presence of loops or recursion.
 
