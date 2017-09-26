@@ -25,7 +25,7 @@ popd
 # express
 git clone https://github.com/expressjs/express
 pushd express
-git checkout 3c54220a3495a7a2cdf580c3289ee37e835c0190 -b travioli_exp
+git checkout 4.14.0 -b travioli_exp
 npm install
 cp node_modules/mocha/bin/_mocha node_modules/mocha/bin/_mocha.js
 ../../bin/run.sh node_modules/mocha/bin/_mocha.js --require test/support/env.js --reporter spec --bail test/*.js -t 60000
