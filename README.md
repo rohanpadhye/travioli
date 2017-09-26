@@ -17,7 +17,7 @@ Travioli's run script looks for a binary named `pypy` in the current `PATH` and 
 ## Installation
 
 1. Clone this Git repository on your machine. We will call this directory `PATH_TO_TRAVIOLI`.
-2. Do `cd <PATH_TO_TRAVIOLI>` and `npm install jalangi2` to install Jalangi in the Travioli directory.
+2. Do `cd <PATH_TO_TRAVIOLI>` and `npm install Samsung/jalangi2` to install Jalangi in the Travioli directory.
 3. (Optional) Install `progressbar2` via PIP. If you are using `pypy`, this can be done via `pypy -m install progressba2r`. For standard python, this is `pip install progressbar2`. This step can be skipped if you are a patient person who does not need to know how much progress Travioli's analysis has made while it is running.
 
 ## Usage
