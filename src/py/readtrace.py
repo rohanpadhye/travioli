@@ -27,10 +27,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import argparse
+import re
 import collections, itertools
 import csv, json
 from collections import namedtuple, defaultdict
-import os.path
+import os
 
 import random
 random.seed("icse2017")  # Fixed seed for reproducibility of experiments
@@ -272,9 +273,10 @@ def str_call_string(cs):
 	return str(map(str_loc, cs))
 
 # Returns if a location is within node_modules or test
+exclude_pattern = re.compile(os.environ.get("TRAVIOLI_EXCLUDE_PATTERN", "node_modules/"))
 def is_excluded(loc):
 	src_file = str_sid(loc[0])
-	return "node_modules/" in src_file or "test/" in src_file or "perf/" in src_file
+	return bool(exclude_pattern.search(src_file))
 
 
 ##############################

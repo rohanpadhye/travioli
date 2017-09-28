@@ -38,7 +38,7 @@ This will first execute the program normally, then with instrumentation, and the
 
 `cd .travioli` to go to the results directory.
 
-The main file to look at is `traversals.out`. This file lists all data-structures whose traversals were identified, and all their associated traversal points. For example, running travioli on the file [`lists.js`](test/lists.js) gives:
+The main file to look at is `traversals.out`. This file lists all data-structures whose traversals were identified, and all their associated traversal points. For example, running travioli on the file [`lists.js`](examples/lists.js) gives:
 
 ```
 + Data structure: (lists.js[27:1-35:2]).node
@@ -72,7 +72,7 @@ The term *acyclic* implies that AECs never contain the same function more than o
 
 AECs either start with some base function or can be extended all the way to the top-level call. If Travioli detects a function that performs data-structure traversal, it will report the AECs of traversal points with respect to the traversing function in the `traversals.out` file itself. If you are interested in seeing the full AECs from the outermost call (usually in the top-level script scope), these AECs are listed as *read* and *write* contexts. 
 
-In the above example, traversal point `[35]` has the expansion `lists.js[33:19-33:28]`, corresponding to the expression [`node.next` on line 33](test/lists.js#L33). AECs for read/write contexts are listed as just numeric identifiers to avoid cluttering this file. If you want to expand a numeric AEC identifier, then from the `.travioli` directory do:
+In the above example, traversal point `[35]` has the expansion `lists.js[33:19-33:28]`, corresponding to the expression [`node.next` on line 33](examples/lists.js#L33). AECs for read/write contexts are listed as just numeric identifiers to avoid cluttering this file. If you want to expand a numeric AEC identifier, then from the `.travioli` directory do:
 
 ```
 $ <PATH_TO_TRAVIOLI>/bin/aec <AEC_IDENTIFIER>
@@ -81,12 +81,12 @@ $ <PATH_TO_TRAVIOLI>/bin/aec <AEC_IDENTIFIER>
 For the above example:
 ```
 $ <PATH_TO_TRAVIOLI>/bin/aec 36
-<PATH_TO_TRAVIOLI>/test/lists.js[33:19-33:28]
-<PATH_TO_TRAVIOLI>/test/lists.js[38:9-38:27]
-<PATH_TO_TRAVIOLI>/test/lists.js[87:1-87:8]
+<PATH_TO_TRAVIOLI>/examples/lists.js[33:19-33:28]
+<PATH_TO_TRAVIOLI>/examples/lists.js[38:9-38:27]
+<PATH_TO_TRAVIOLI>/examples/lists.js[87:1-87:8]
 ```
 
-This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case3()` on line 87](test/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](test/lists.js#L38) and then the expression [`node.next` on line 33](test/lists.js#L33)).
+This tells as that the read context AEC 36 starts with the invocation of at line 87 (in this case, of [`case3()` on line 87](examples/lists.js#L87) and is followed by the invocation of [`contains()` on line 38](examples/lists.js#L38) and then the expression [`node.next` on line 33](examples/lists.js#L33)).
 
 The write context is also a full AEC but corresponds to the program-locations where the data-structure fields being traversed were written.
 
@@ -115,13 +115,13 @@ Note that rendering can be quite time-consuming for large applications. This com
 
 ```
 $ <PATH_TO_TRAVIOLI>/bin/loc 1 377
-<PATH_TO_TRAVIOLI>/test/lists.js[19:1-25:2]
+<PATH_TO_TRAVIOLI>/examples/lists.js[19:1-25:2]
 ``` 
 
-The output indicates that the function is located in [`lists.js` at lines 19-25](test/lists.js#L19-L25).
+The output indicates that the function is located in [`lists.js` at lines 19-25](examples/lists.js#L19-L25).
 
 
 ### Experiments
 
-To reproduce the experiments described in the research paper, run the script `bin/exp.sh`. This will clone [`d3-hierarchy`](https://github.com/d3/d3-hierarchy), [`d3-collection`](https://github.com/d3/d3-collection), [`express`](https://github.com/expressjs/express) and [`mathjs`](https://github.com/josdejong/mathjs) into the `test` directory, checkout the versions used for experiments in the paper, and run Travioli on the unit test suites. The results will be produced in their respective `.travioli` directories, with the summary of data-structure traversals in the `traversals.out` file.
+To reproduce the experiments described in the research paper, run the script `bin/exp.sh`. This will clone [`d3-hierarchy`](https://github.com/d3/d3-hierarchy), [`d3-collection`](https://github.com/d3/d3-collection), [`express`](https://github.com/expressjs/express) and [`mathjs`](https://github.com/josdejong/mathjs) into the `exp` directory, checkout the versions used for experiments in the paper, and run Travioli on the unit test suites. The results will be produced in their respective `.travioli` directories, with the summary of data-structure traversals in the `traversals.out` file.
 

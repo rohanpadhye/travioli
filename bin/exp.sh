@@ -2,7 +2,8 @@
 
 set -e
 
-cd test
+mkdir -p exp/
+cd exp
 
 # d3-hierarchy
 git clone https://github.com/d3/d3-hierarchy
