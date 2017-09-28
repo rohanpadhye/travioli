@@ -10,8 +10,6 @@ Travioli supports ECMAScript 5 and has been tested on NodeJS v4.4.0. You will ne
 
 Travioli uses **python** for the back-end analysis. We *strongly* recommend using the [pypy](http://pypy.org) implementation. Travioli's analysis is CPU-intensive; pypy's tracing JIT compiler speeds up analysis over the default CPython runtime by anywhere from 4x to 10x, and saves a lot of memory too. 
 
-Travioli's run script looks for a binary named `pypy` in the current `PATH` and if not found falls back to the `python` command.
-
 **[Optional]** If you wish to use Travioli for visualization, you will need **GraphViz** to render access graphs from the `dot` files that Travioli generates. This software is available as `graphviz` via `brew` and `apt-get`/`aptitude`.
 
 ## Installation
@@ -33,6 +31,14 @@ $ <PATH_TO_TRAVIOLI>/bin/run.sh <my_program> [my_program_args...]
 ```
 
 This will first execute the program normally, then with instrumentation, and then analyze the generated trace with Travioli. All intermediate files are stored in a directory `.travioli` created in whatever parent directory the above command was run in.
+
+### Configuration
+
+Travioli's run script adheres to the following environment variables:
+
+- `NODEJS`: Command or path to the NodeJS runtime (default is `node`)
+- `PYTHON`: Command or path to the Python runtime (default is `pypy` if available else `python`)
+- `TRAVIOLI_EXCLUDE_PATTERN`: A regex pattern - if a JS filename matches this pattern, then Travioli does not analyze the execution of functions defined in that file (default is `node_modules/|test/|perf/` in order to exclude library code and test drivers from analysis)
 
 ## Results
 
@@ -124,4 +130,6 @@ The output indicates that the function is located in [`lists.js` at lines 19-25]
 ### Experiments
 
 To reproduce the experiments described in the research paper, run the script `bin/exp.sh`. This will clone [`d3-hierarchy`](https://github.com/d3/d3-hierarchy), [`d3-collection`](https://github.com/d3/d3-collection), [`express`](https://github.com/expressjs/express) and [`mathjs`](https://github.com/josdejong/mathjs) into the `exp` directory, checkout the versions used for experiments in the paper, and run Travioli on the unit test suites. The results will be produced in their respective `.travioli` directories, with the summary of data-structure traversals in the `traversals.out` file.
+
+
 
